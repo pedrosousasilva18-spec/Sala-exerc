@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Body Lab — Sala de Treino</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --panel: #111111;
+    --border: #1f1f1f;
+    --accent1: #ff3c00;
+    --accent2: #00e5ff;
+    --accent3: #aaff00;
+    --accent4: #ff00aa;
+    --text: #f0f0f0;
+    --muted: #555;
+    --gold: #ffd700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    height: 64px;
+    background: #0d0d0d;
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-shadow: none;
+  }
+
+  .logo span { color: #888888; }
+
+  /* clock */
+  .clock-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .clock {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-shadow: 0 0 16px rgba(255,215,0,0.3);
+    line-height: 1;
+  }
+
+  .date-label {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* timers */
+  .timers-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .timer-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .timer-label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .timer-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timer-pill:hover { border-color: #444; transform: translateY(-1px); }
+  .timer-pill.running { border-color: var(--accent3); box-shadow: 0 0 12px rgba(170,255,0,0.2); }
+
+  .timer-duration {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .timer-countdown {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: var(--accent3);
+    min-width: 36px;
+    text-align: center;
+  }
+
+  .timer-progress {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: var(--accent3);
+    transition: width 1s linear;
+  }
+
+  .btn-icon {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 2px 4px;
+    transition: color 0.15s;
+  }
+  .btn-icon:hover { color: var(--text); }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    flex: 1;
+    background: #000;
+    overflow: hidden;
+  }
+
+  /* ── WORKOUT PANEL ── */
+  .panel {
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px 8px;
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .panel-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    padding: 2px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .panel-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--text);
+    margin-left: 10px;
+  }
+
+  .panel-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .meta-chip {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* exercise list */
+  .ex-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 16px;
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a transparent;
+  }
+
+  .ex-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+
+  .ex-item:last-child { border-bottom: none; }
+
+  .ex-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    min-width: 22px;
+    text-align: right;
+    opacity: 0.35;
+    line-height: 1.2;
+  }
+
+  .ex-body { flex: 1; }
+
+  .ex-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .ex-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .ex-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    padding: 1px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    align-self: center;
+  }
+
+  /* accent strips */
+  .panel:nth-child(1) .accent-strip { background: var(--accent1); }
+  .panel:nth-child(2) .accent-strip { background: var(--accent2); }
+  .panel:nth-child(3) .accent-strip { background: var(--accent3); }
+  .panel:nth-child(4) .accent-strip { background: var(--accent4); }
+
+  .panel:nth-child(1) .panel-tag { background: rgba(255,60,0,0.15); color: var(--accent1); border: 1px solid rgba(255,60,0,0.3); }
+  .panel:nth-child(2) .panel-tag { background: rgba(0,229,255,0.1); color: var(--accent2); border: 1px solid rgba(0,229,255,0.25); }
+  .panel:nth-child(3) .panel-tag { background: rgba(170,255,0,0.1); color: var(--accent3); border: 1px solid rgba(170,255,0,0.25); }
+  .panel:nth-child(4) .panel-tag { background: rgba(255,0,170,0.1); color: var(--accent4); border: 1px solid rgba(255,0,170,0.25); }
+
+  .panel:nth-child(1) .ex-badge { background: rgba(255,60,0,0.15); color: var(--accent1); }
+  .panel:nth-child(2) .ex-badge { background: rgba(0,229,255,0.1); color: var(--accent2); }
+  .panel:nth-child(3) .ex-badge { background: rgba(170,255,0,0.1); color: var(--accent3); }
+  .panel:nth-child(4) .ex-badge { background: rgba(255,0,170,0.1); color: var(--accent4); }
+
+  .panel:nth-child(1) .panel-title { color: var(--accent1); }
+  .panel:nth-child(2) .panel-title { color: var(--accent2); }
+  .panel:nth-child(3) .panel-title { color: var(--accent3); }
+  .panel:nth-child(4) .panel-title { color: var(--accent4); }
+
+  .accent-strip {
+    height: 3px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  /* rounds display */
+  .rounds-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background: #0e0e0e;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .rounds-label {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .round-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 1px solid #333;
+  }
+
+  .round-dot.done { background: currentColor; }
+
+  .panel:nth-child(1) .round-dot.done { background: var(--accent1); box-shadow: 0 0 6px var(--accent1); }
+  .panel:nth-child(2) .round-dot.done { background: var(--accent2); box-shadow: 0 0 6px var(--accent2); }
+  .panel:nth-child(3) .round-dot.done { background: var(--accent3); box-shadow: 0 0 6px var(--accent3); }
+  .panel:nth-child(4) .round-dot.done { background: var(--accent4); box-shadow: 0 0 6px var(--accent4); }
+
+  /* scrollbar */
+  .ex-list::-webkit-scrollbar { width: 4px; }
+  .ex-list::-webkit-scrollbar-track { background: transparent; }
+  .ex-list::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+  /* fullscreen hint */
+  .fs-hint {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    color: #333;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 2px 8px;
+    border: 1px solid #1a1a1a;
+    border-radius: 4px;
+  }
+  .fs-hint:hover { color: #666; border-color: #333; }
+
+  /* TIMER OVERLAY */
+  .timer-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+  }
+
+  .timer-overlay.active { display: flex; }
+
+  .overlay-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 8px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .overlay-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16rem;
+    line-height: 1;
+    color: var(--accent3);
+    text-shadow: 0 0 60px rgba(170,255,0,0.4);
+    transition: color 0.3s;
+  }
+
+  .overlay-number.urgent { color: var(--accent1); text-shadow: 0 0 60px rgba(255,60,0,0.5); animation: pulse 0.5s infinite alternate; }
+
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+
+  .overlay-close {
+    margin-top: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: #444;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .overlay-close:hover { color: #888; }
+
+  .overlay-ring {
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    border: 3px solid #1a1a1a;
+    overflow: hidden;
+  }
+
+  .overlay-arc {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+  }
+
+  /* ring SVG */
+  .ring-svg {
+    position: absolute;
+    width: 380px; height: 380px;
+    transform: rotate(-90deg);
+  }
+
+  .ring-track { fill: none; stroke: #1f1f1f; stroke-width: 8; }
+  .ring-fill { fill: none; stroke: var(--accent3); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+
+  /* notification sound visual */
+  .beep-flash {
+    position: fixed;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.1s;
+  }
+  .beep-flash.flash { opacity: 0.08; }
+
+  .panel-header-left { display: flex; align-items: center; gap: 4px; }
+
+  /* ── EDIT BUTTON ── */
+  .edit-btn {
+    background: none;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    color: #444;
+    cursor: pointer;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    transition: all 0.15s;
+    font-family: 'Barlow Condensed', sans-serif;
+    margin-left: 10px;
+  }
+  .edit-btn:hover { color: #aaa; border-color: #555; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88); z-index: 500;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: #141414; border: 1px solid #2a2a2a;
+    border-radius: 10px; width: 660px; max-width: 96vw;
+    max-height: 88vh; display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid #222; flex-shrink: 0;
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: 4px; color: #f0f0f0;
+  }
+
+  .modal-close {
+    background: none; border: none; color: #555;
+    font-size: 1.3rem; cursor: pointer; line-height: 1; padding: 0 4px;
+    transition: color 0.15s;
+  }
+  .modal-close:hover { color: #f0f0f0; }
+
+  .modal-body {
+    flex: 1; overflow-y: auto; padding: 16px 20px;
+    scrollbar-width: thin; scrollbar-color: #2a2a2a transparent;
+  }
+
+  .modal-section { margin-bottom: 16px; }
+
+  .modal-section-label {
+    font-size: 0.6rem; letter-spacing: 3px; color: #444;
+    text-transform: uppercase; margin-bottom: 8px;
+    border-bottom: 1px solid #1f1f1f; padding-bottom: 4px;
+  }
+
+  .field-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-end; }
+
+  .field-group { display: flex; flex-direction: column; gap: 3px; }
+  .field-group.grow { flex: 1; }
+
+  .field-label { font-size: 0.58rem; letter-spacing: 2px; color: #3a3a3a; text-transform: uppercase; }
+
+  .field-input {
+    background: #1a1a1a; border: 1px solid #2a2a2a;
+    border-radius: 5px; padding: 7px 10px;
+    color: #f0f0f0; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.95rem; outline: none; transition: border-color 0.15s; width: 100%;
+  }
+  .field-input:focus { border-color: #555; }
+
+  .ex-edit-row {
+    display: grid; grid-template-columns: 1fr 90px 26px;
+    gap: 6px; align-items: center; margin-bottom: 6px;
+  }
+
+  .ex-edit-inner { display: flex; flex-direction: column; gap: 4px; }
+
+  .btn-remove {
+    background: none; border: 1px solid #2a2a2a; border-radius: 4px;
+    color: #444; cursor: pointer; font-size: 0.9rem;
+    width: 26px; height: 26px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .btn-remove:hover { color: #ff3c00; border-color: #ff3c00; }
+
+  .btn-add-ex {
+    background: #1a1a1a; border: 1px dashed #2a2a2a;
+    border-radius: 5px; color: #555; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem; letter-spacing: 2px;
+    text-transform: uppercase; padding: 7px;
+    width: 100%; transition: all 0.15s; margin-top: 4px;
+  }
+  .btn-add-ex:hover { border-color: #444; color: #888; }
+
+  .modal-footer {
+    display: flex; gap: 10px; justify-content: flex-end;
+    padding: 12px 20px; border-top: 1px solid #1f1f1f; flex-shrink: 0;
+  }
+
+  .btn-cancel {
+    background: none; border: 1px solid #2a2a2a; border-radius: 5px;
+    color: #666; cursor: pointer; font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 7px 18px; transition: all 0.15s;
+  }
+  .btn-cancel:hover { border-color: #555; color: #aaa; }
+
+  .btn-save {
+    background: #ff3c00; border: none; border-radius: 5px;
+    color: #fff; cursor: pointer; font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 3px; padding: 7px 22px; transition: opacity 0.15s;
+  }
+  .btn-save:hover { opacity: 0.82; }
+</style>
+</head>
+<body>
+
+<!-- TIMER OVERLAY -->
+<div class="timer-overlay" id="timerOverlay">
+  <div class="overlay-label" id="overlayLabel">TIMER</div>
+  <div style="position:relative; display:flex; align-items:center; justify-content:center; width:380px; height:380px;">
+    <svg class="ring-svg" viewBox="0 0 380 380">
+      <circle class="ring-track" cx="190" cy="190" r="175"/>
+      <circle class="ring-fill" id="ringFill" cx="190" cy="190" r="175"
+        stroke-dasharray="1099.56"
+        stroke-dashoffset="0"/>
+    </svg>
+    <div class="overlay-number" id="overlayNumber">60</div>
+  </div>
+  <div class="overlay-close" onclick="closeOverlay()">ESC — fechar</div>
+</div>
+
+<div class="beep-flash" id="beepFlash"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">THE <span>BODY</span> LAB</div>
+
+  <div class="clock-wrap">
+    <div class="clock" id="clock">00:00:00</div>
+    <div class="date-label" id="dateLabel">—</div>
+  </div>
+
+  <div class="timers-bar">
+    <!-- 60s -->
+    <div class="timer-btn-group">
+      <div class="timer-label">Timers</div>
+      <div style="display:flex; gap:6px;">
+        <div class="timer-pill" id="tp60" onclick="startTimer(60, this)">
+          <span class="timer-duration">60s</span>
+          <span class="timer-countdown" id="tc60">—</span>
+          <div class="timer-progress" id="tprog60" style="width:100%"></div>
+        </div>
+        <div class="timer-pill" id="tp30" onclick="startTimer(30, this)">
+          <span class="timer-duration">30s</span>
+          <span class="timer-countdown" id="tc30">—</span>
+          <div class="timer-progress" id="tprog30" style="width:100%"></div>
+        </div>
+        <div class="timer-pill" id="tp15" onclick="startTimer(15, this)">
+          <span class="timer-duration">15s</span>
+          <span class="timer-countdown" id="tc15">—</span>
+          <div class="timer-progress" id="tprog15" style="width:100%"></div>
+        </div>
+      </div>
+    </div>
+    <button class="fs-hint" onclick="toggleFullscreen()">[ ] TV</button>
+  </div>
+</div>
+
+<!-- 4-PANEL GRID -->
+<div class="grid">
+
+  <!-- PANEL 1: FORÇA -->
+  <div class="panel">
+    <div class="accent-strip"></div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <span class="panel-tag">Força</span>
+        <span class="panel-title">Upper Body</span>
+      </div>
+      <div class="panel-meta">
+        <span class="meta-chip">4 Rounds</span>
+        <span class="meta-chip">60s descanso</span>
+        <span class="meta-chip">Nível: ★★★</span>
+        <button class="edit-btn" onclick="openModal(0)">✎ editar</button>
+      </div>
+    </div>
+    <div class="ex-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-body">
+          <div class="ex-name">Supino com Barra</div>
+          <div class="ex-detail">Agarra a barra à largura dos ombros — peito ativo, cotovelos a 45°</div>
+        </div>
+        <span class="ex-badge">4×8</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-body">
+          <div class="ex-name">Remada com Barra</div>
+          <div class="ex-detail">Tronco a 45°, puxa em direção ao umbigo, escápulas para dentro</div>
+        </div>
+        <span class="ex-badge">4×10</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-body">
+          <div class="ex-name">Press Militar</div>
+          <div class="ex-detail">De pé, core contraído — empurra para cima sem arquear a lombar</div>
+        </div>
+        <span class="ex-badge">3×10</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-body">
+          <div class="ex-name">Pull-Ups / Puxadas</div>
+          <div class="ex-detail">Agarre pronado — desce até extensão completa do cotovelo</div>
+        </div>
+        <span class="ex-badge">3×Max</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">05</span>
+        <div class="ex-body">
+          <div class="ex-name">Curl de Bíceps</div>
+          <div class="ex-detail">Cotovelos fixos ao tronco — concentra na fase excêntrica</div>
+        </div>
+        <span class="ex-badge">3×12</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">06</span>
+        <div class="ex-body">
+          <div class="ex-name">Tríceps na Polia</div>
+          <div class="ex-detail">Cotovelos fixos, extensão completa, sem balançar o tronco</div>
+        </div>
+        <span class="ex-badge">3×15</span>
+      </div>
+    </div>
+    <div class="rounds-bar">
+      <span class="rounds-label">Rounds</span>
+      <div class="round-dot done"></div>
+      <div class="round-dot done"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: CARDIO -->
+  <div class="panel">
+    <div class="accent-strip"></div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <span class="panel-tag">Cardio</span>
+        <span class="panel-title">HIIT Circuit</span>
+      </div>
+      <div class="panel-meta">
+        <span class="meta-chip">5 Rounds</span>
+        <span class="meta-chip">30s trabalho / 15s descanso</span>
+        <span class="meta-chip">Nível: ★★</span>
+        <button class="edit-btn" onclick="openModal(1)">✎ editar</button>
+      </div>
+    </div>
+    <div class="ex-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-body">
+          <div class="ex-name">Burpees</div>
+          <div class="ex-detail">Máxima intensidade — queda controlada, extensão completa no salto</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-body">
+          <div class="ex-name">Mountain Climbers</div>
+          <div class="ex-detail">Quadril baixo, core ativado — ritmo rápido mas controlado</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-body">
+          <div class="ex-name">Jump Squats</div>
+          <div class="ex-detail">Aterragem suave — joelhos alinhados com os pés, coxa paralela ao chão</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-body">
+          <div class="ex-name">High Knees</div>
+          <div class="ex-detail">Joelhos acima da anca, braços a bombar — mantém o ritmo</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">05</span>
+        <div class="ex-body">
+          <div class="ex-name">Box Jumps</div>
+          <div class="ex-detail">Impulso dos dois pés — aterragem suave no centro da box</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">06</span>
+        <div class="ex-body">
+          <div class="ex-name">Skipping</div>
+          <div class="ex-detail">Corda ou simulado — ritmo constante, pulso a girar</div>
+        </div>
+        <span class="ex-badge">30s</span>
+      </div>
+    </div>
+    <div class="rounds-bar">
+      <span class="rounds-label">Rounds</span>
+      <div class="round-dot done"></div>
+      <div class="round-dot done"></div>
+      <div class="round-dot done"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: CORE -->
+  <div class="panel">
+    <div class="accent-strip"></div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <span class="panel-tag">Core</span>
+        <span class="panel-title">Abdominal &amp; Estabilidade</span>
+      </div>
+      <div class="panel-meta">
+        <span class="meta-chip">3 Rounds</span>
+        <span class="meta-chip">45s descanso</span>
+        <span class="meta-chip">Nível: ★★</span>
+        <button class="edit-btn" onclick="openModal(2)">✎ editar</button>
+      </div>
+    </div>
+    <div class="ex-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-body">
+          <div class="ex-name">Prancha Frontal</div>
+          <div class="ex-detail">Corpo em linha reta, glúteos ativados — respira de forma controlada</div>
+        </div>
+        <span class="ex-badge">60s</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-body">
+          <div class="ex-name">Crunch Bicicleta</div>
+          <div class="ex-detail">Cotovelo oposto ao joelho — lombar colada ao chão durante todo o movimento</div>
+        </div>
+        <span class="ex-badge">3×20</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-body">
+          <div class="ex-name">Dead Bug</div>
+          <div class="ex-detail">Braço e perna opostos — lombar permanece encostada ao tapete</div>
+        </div>
+        <span class="ex-badge">3×12</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-body">
+          <div class="ex-name">Prancha Lateral</div>
+          <div class="ex-detail">Quadril elevado, corpo em plano lateral — não deixa o quadril cair</div>
+        </div>
+        <span class="ex-badge">45s×2</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">05</span>
+        <div class="ex-body">
+          <div class="ex-name">Russian Twists</div>
+          <div class="ex-detail">Pés elevados ou no chão — rotação completa de cada lado com controlo</div>
+        </div>
+        <span class="ex-badge">3×20</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">06</span>
+        <div class="ex-body">
+          <div class="ex-name">Leg Raises</div>
+          <div class="ex-detail">Lombar colada, pernas juntas — desce sem tocar no chão</div>
+        </div>
+        <span class="ex-badge">3×15</span>
+      </div>
+    </div>
+    <div class="rounds-bar">
+      <span class="rounds-label">Rounds</span>
+      <div class="round-dot done"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+  </div>
+
+  <!-- PANEL 4: LOWER BODY -->
+  <div class="panel">
+    <div class="accent-strip"></div>
+    <div class="panel-header">
+      <div class="panel-header-left">
+        <span class="panel-tag">Lower Body</span>
+        <span class="panel-title">Pernas &amp; Glúteos</span>
+      </div>
+      <div class="panel-meta">
+        <span class="meta-chip">4 Rounds</span>
+        <span class="meta-chip">60s descanso</span>
+        <span class="meta-chip">Nível: ★★★</span>
+        <button class="edit-btn" onclick="openModal(3)">✎ editar</button>
+      </div>
+    </div>
+    <div class="ex-list">
+      <div class="ex-item">
+        <span class="ex-num">01</span>
+        <div class="ex-body">
+          <div class="ex-name">Agachamento Livre</div>
+          <div class="ex-detail">Pés à largura dos ombros — coxa paralela ao chão, joelhos sobre os pés</div>
+        </div>
+        <span class="ex-badge">4×10</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">02</span>
+        <div class="ex-body">
+          <div class="ex-name">Afundos Alternados</div>
+          <div class="ex-detail">Passo largo à frente — joelho da frente a 90°, não ultrapassa o pé</div>
+        </div>
+        <span class="ex-badge">3×12</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">03</span>
+        <div class="ex-body">
+          <div class="ex-name">Extensão de Quadril</div>
+          <div class="ex-detail">Glúteos contraídos no topo — controla a descida de forma excêntrica</div>
+        </div>
+        <span class="ex-badge">4×15</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">04</span>
+        <div class="ex-body">
+          <div class="ex-name">Leg Press</div>
+          <div class="ex-detail">Pés no centro da plataforma — não trava os joelhos na extensão</div>
+        </div>
+        <span class="ex-badge">4×12</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">05</span>
+        <div class="ex-body">
+          <div class="ex-name">Stiff com Halteres</div>
+          <div class="ex-detail">Costas retas, descida ao longo das pernas — sente o isquiotibial</div>
+        </div>
+        <span class="ex-badge">3×12</span>
+      </div>
+      <div class="ex-item">
+        <span class="ex-num">06</span>
+        <div class="ex-body">
+          <div class="ex-name">Elevação de Gémeos</div>
+          <div class="ex-detail">Amplitude completa — pausa de 1s no topo, desce controlado</div>
+        </div>
+        <span class="ex-badge">4×20</span>
+      </div>
+    </div>
+    <div class="rounds-bar">
+      <span class="rounds-label">Rounds</span>
+      <div class="round-dot done"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+      <div class="round-dot"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">EDITAR TREINO</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">Cabeçalho do Painel</div>
+        <div class="field-row">
+          <div class="field-group" style="width:140px">
+            <div class="field-label">Categoria (tag)</div>
+            <input class="field-input" id="edit-tag" placeholder="ex: Força">
+          </div>
+          <div class="field-group grow">
+            <div class="field-label">Título</div>
+            <input class="field-input" id="edit-title" placeholder="ex: Upper Body">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group" style="width:120px">
+            <div class="field-label">Rounds</div>
+            <input class="field-input" id="edit-rounds" placeholder="ex: 4 Rounds">
+          </div>
+          <div class="field-group" style="width:150px">
+            <div class="field-label">Descanso</div>
+            <input class="field-input" id="edit-rest" placeholder="ex: 60s descanso">
+          </div>
+          <div class="field-group grow">
+            <div class="field-label">Nível</div>
+            <input class="field-input" id="edit-level" placeholder="ex: Nível: ★★★">
+          </div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">Exercícios</div>
+        <div id="edit-exercises"></div>
+        <button class="btn-add-ex" onclick="addExRow()">+ Adicionar Exercício</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="savePanel()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── CLOCK ──
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  const s = String(now.getSeconds()).padStart(2, '0');
+  document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+
+  const days = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+  const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const d = now.getDate();
+  const mo = months[now.getMonth()];
+  const day = days[now.getDay()];
+  document.getElementById('dateLabel').textContent = `${day}, ${d} ${mo} ${now.getFullYear()}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ── TIMERS ──
+let activeTimers = {};
+
+const CIRC = 2 * Math.PI * 175; // circumference
+
+function beep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+
+  const flash = document.getElementById('beepFlash');
+  flash.classList.add('flash');
+  setTimeout(() => flash.classList.remove('flash'), 120);
+}
+
+function startTimer(secs, el) {
+  const key = secs;
+
+  // if already running, cancel
+  if (activeTimers[key]) {
+    clearInterval(activeTimers[key].interval);
+    delete activeTimers[key];
+    el.classList.remove('running');
+    document.getElementById('tc' + secs).textContent = '—';
+    document.getElementById('tprog' + secs).style.width = '100%';
+    // if overlay is for this timer, close it
+    if (document.getElementById('timerOverlay').classList.contains('active')) {
+      closeOverlay();
+    }
+    return;
+  }
+
+  el.classList.add('running');
+
+  let remaining = secs;
+  const tc = document.getElementById('tc' + secs);
+  const tprog = document.getElementById('tprog' + secs);
+
+  tc.textContent = remaining;
+  tprog.style.width = '100%';
+
+  const interval = setInterval(() => {
+    remaining--;
+    tc.textContent = remaining;
+    tprog.style.width = ((remaining / secs) * 100) + '%';
+
+    if (remaining <= 3 && remaining > 0) beep();
+
+    if (remaining <= 0) {
+      clearInterval(interval);
+      delete activeTimers[key];
+      el.classList.remove('running');
+      tc.textContent = '✓';
+      tprog.style.width = '0%';
+      // big final beep
+      setTimeout(beep, 0);
+      setTimeout(beep, 200);
+      setTimeout(beep, 400);
+      setTimeout(() => {
+        tc.textContent = '—';
+        tprog.style.width = '100%';
+      }, 2000);
+
+
+    }
+  }, 1000);
+
+  activeTimers[key] = { interval, secs };
+}
+
+function openOverlay(secs) {
+  const overlay = document.getElementById('timerOverlay');
+  overlay.classList.add('active');
+  overlay._timerSecs = secs;
+  document.getElementById('overlayLabel').textContent = 'TIMER — ' + secs + 'S';
+  document.getElementById('overlayNumber').textContent = secs;
+  document.getElementById('overlayNumber').classList.remove('urgent');
+  document.getElementById('ringFill').style.strokeDashoffset = 0;
+}
+
+function closeOverlay() {
+  const overlay = document.getElementById('timerOverlay');
+  overlay.classList.remove('active');
+}
+
+
+
+// ── PANEL DATA & EDITOR ──
+function getPanelData(idx) {
+  const panels = document.querySelectorAll('.panel');
+  const p = panels[idx];
+  const tag = p.querySelector('.panel-tag').textContent;
+  const title = p.querySelector('.panel-title').textContent;
+  const chips = p.querySelectorAll('.meta-chip');
+  const rounds = chips[0] ? chips[0].textContent : '';
+  const rest   = chips[1] ? chips[1].textContent : '';
+  const level  = chips[2] ? chips[2].textContent : '';
+  const exercises = [];
+  p.querySelectorAll('.ex-item').forEach(item => {
+    exercises.push({
+      name:   item.querySelector('.ex-name').textContent,
+      detail: item.querySelector('.ex-detail').textContent,
+      badge:  item.querySelector('.ex-badge').textContent
+    });
+  });
+  return { tag, title, rounds, rest, level, exercises };
+}
+
+let _editingIdx = null;
+
+function openModal(idx) {
+  _editingIdx = idx;
+  const d = getPanelData(idx);
+  document.getElementById('modalTitle').textContent = 'EDITAR PAINEL ' + (idx+1);
+  document.getElementById('edit-tag').value    = d.tag;
+  document.getElementById('edit-title').value  = d.title;
+  document.getElementById('edit-rounds').value = d.rounds;
+  document.getElementById('edit-rest').value   = d.rest;
+  document.getElementById('edit-level').value  = d.level;
+  const container = document.getElementById('edit-exercises');
+  container.innerHTML = '';
+  d.exercises.forEach(ex => addExRow(ex));
+  document.getElementById('editModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('editModal').classList.remove('active');
+  _editingIdx = null;
+}
+
+function addExRow(ex) {
+  ex = ex || { name: '', detail: '', badge: '' };
+  const container = document.getElementById('edit-exercises');
+  const row = document.createElement('div');
+  row.className = 'ex-edit-row';
+  row.innerHTML =
+    '<div class="ex-edit-inner">' +
+      '<input class="field-input ex-name-i" placeholder="Nome do exercício" value="' + esc(ex.name) + '">' +
+      '<input class="field-input ex-detail-i" placeholder="Dica / descrição" value="' + esc(ex.detail) + '" style="font-size:0.8rem;color:#666">' +
+    '</div>' +
+    '<input class="field-input ex-badge-i" placeholder="Séries" value="' + esc(ex.badge) + '">' +
+    '<button class="btn-remove" onclick="this.closest(\'.ex-edit-row\').remove()">✕</button>';
+  container.appendChild(row);
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function savePanel() {
+  if (_editingIdx === null) return;
+  const panels = document.querySelectorAll('.panel');
+  const p = panels[_editingIdx];
+
+  // Update header
+  p.querySelector('.panel-tag').textContent   = document.getElementById('edit-tag').value || p.querySelector('.panel-tag').textContent;
+  p.querySelector('.panel-title').textContent = document.getElementById('edit-title').value || p.querySelector('.panel-title').textContent;
+  const chips = p.querySelectorAll('.meta-chip');
+  if (chips[0]) chips[0].textContent = document.getElementById('edit-rounds').value || chips[0].textContent;
+  if (chips[1]) chips[1].textContent = document.getElementById('edit-rest').value   || chips[1].textContent;
+  if (chips[2]) chips[2].textContent = document.getElementById('edit-level').value  || chips[2].textContent;
+
+  // Update exercises
+  const rows = document.querySelectorAll('#edit-exercises .ex-edit-row');
+  const exList = p.querySelector('.ex-list');
+  exList.innerHTML = '';
+  rows.forEach((row, i) => {
+    const name   = row.querySelector('.ex-name-i').value.trim();
+    const detail = row.querySelector('.ex-detail-i').value.trim();
+    const badge  = row.querySelector('.ex-badge-i').value.trim();
+    if (!name) return;
+    const num = String(i+1).padStart(2,'0');
+    exList.innerHTML +=
+      '<div class="ex-item">' +
+        '<span class="ex-num">' + num + '</span>' +
+        '<div class="ex-body">' +
+          '<div class="ex-name">' + esc(name) + '</div>' +
+          '<div class="ex-detail">' + esc(detail) + '</div>' +
+        '</div>' +
+        '<span class="ex-badge">' + esc(badge) + '</span>' +
+      '</div>';
+  });
+
+  closeModal();
+}
+
+// close on backdrop click
+document.getElementById('editModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeOverlay(); }
+});
+
+
+// ── FULLSCREEN ──
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+</script>
+
+</body>
+</html>
