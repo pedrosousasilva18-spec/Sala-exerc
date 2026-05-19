@@ -611,6 +611,7 @@
         </div>
       </div>
     </div>
+    <span id="syncStatus" style="font-size:0.65rem;letter-spacing:2px;color:#555;font-family:'Barlow Condensed',sans-serif;min-width:120px;text-align:right"></span>
     <button class="fs-hint" onclick="toggleFullscreen()">[ ] TV</button>
   </div>
 </div>
@@ -1141,12 +1142,131 @@ function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// ── SUPABASE CONFIG ──
+const SB_URL = 'https://avszwlmscxlyidagwqxm.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF2c3p3bG1zY3hseWlkYWd3cXhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNTc0NjUsImV4cCI6MjA5NDczMzQ2NX0.Grza1-oIVgEv-cV2pZ09398XcKW6zQ9Su8SJLA0mYRk';
+
+async function sbFetch(method, body) {
+  // Use PATCH to update existing row, POST with upsert to create if missing
+  const url = SB_URL + '/rest/v1/treinos';
+  const headers = {
+    'apikey': SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type': 'application/json',
+    'Prefer': 'resolution=merge-duplicates,return=minimal'
+  };
+  // Try PATCH first (update), if row doesn't exist use POST (insert)
+  const res = await fetch(url, {
+    method: 'POST',
+    headers,
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return res;
+}
+
+function getAllPanelData() {
+  const data = [];
+  document.querySelectorAll('.panel').forEach((p, i) => {
+    data.push(getPanelData(i));
+  });
+  return data;
+}
+
+function applyPanelData(data) {
+  document.querySelectorAll('.panel').forEach((p, idx) => {
+    if (!data[idx]) return;
+    const d = data[idx];
+    p.querySelector('.panel-tag').textContent   = d.tag;
+    p.querySelector('.panel-title').textContent = d.title;
+    const chips = p.querySelectorAll('.meta-chip');
+    if (chips[0]) chips[0].textContent = d.rounds;
+    if (chips[1]) chips[1].textContent = d.rest;
+    if (chips[2]) chips[2].textContent = d.level;
+    const exList = p.querySelector('.ex-list');
+    exList.innerHTML = '';
+    d.exercises.forEach((ex, i) => {
+      const num = String(i+1).padStart(2,'0');
+      exList.innerHTML +=
+        '<div class="ex-item">' +
+          '<span class="ex-num">' + num + '</span>' +
+          '<div class="ex-body">' +
+            '<div class="ex-name">' + esc(ex.name) + '</div>' +
+            '<div class="ex-detail">' + esc(ex.detail) + '</div>' +
+          '</div>' +
+          '<span class="ex-badge">' + esc(ex.badge) + '</span>' +
+        '</div>';
+    });
+  });
+}
+
+function showSyncStatus(msg, ok, err) {
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = err ? '#ff3c00' : ok ? '#aaff00' : '#888';
+  if (ok) setTimeout(() => { el.textContent = ''; }, 3000);
+}
+
+async function saveToCloud(data) {
+  showSyncStatus('A guardar...');
+  const headers = {
+    'apikey': SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY,
+    'Content-Type': 'application/json',
+    'Prefer': 'resolution=merge-duplicates,return=minimal'
+  };
+  const payload = JSON.stringify({ id: 'panels', data: data, updated_at: new Date().toISOString() });
+  try {
+    // Try PATCH (update existing row)
+    let res = await fetch(SB_URL + '/rest/v1/treinos?id=eq.panels', {
+      method: 'PATCH',
+      headers,
+      body: payload
+    });
+    // If no row existed yet, insert with POST
+    if (res.status === 404 || res.status === 406) {
+      res = await fetch(SB_URL + '/rest/v1/treinos', {
+        method: 'POST',
+        headers,
+        body: payload
+      });
+    }
+    if (res.ok || res.status === 200 || res.status === 201 || res.status === 204) {
+      showSyncStatus('✓ Guardado online', true);
+    } else {
+      const txt = await res.text();
+      showSyncStatus('Erro ' + res.status, false, true);
+      console.error('Supabase save error:', res.status, txt);
+    }
+  } catch(e) {
+    showSyncStatus('Sem ligação', false, true);
+    console.error('Supabase exception:', e);
+  }
+}
+
+async function loadFromCloud() {
+  showSyncStatus('A carregar...');
+  try {
+    const res = await fetch(SB_URL + '/rest/v1/treinos?id=eq.panels&select=data', {
+      headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
+    });
+    const json = await res.json();
+    if (json && json[0] && Array.isArray(json[0].data) && json[0].data.length > 0) {
+      applyPanelData(json[0].data);
+      showSyncStatus('✓ Sincronizado', true);
+    } else {
+      showSyncStatus('');
+    }
+  } catch(e) {
+    showSyncStatus('Sem ligação', false, true);
+  }
+}
+
 function savePanel() {
   if (_editingIdx === null) return;
   const panels = document.querySelectorAll('.panel');
   const p = panels[_editingIdx];
 
-  // Update header
   p.querySelector('.panel-tag').textContent   = document.getElementById('edit-tag').value || p.querySelector('.panel-tag').textContent;
   p.querySelector('.panel-title').textContent = document.getElementById('edit-title').value || p.querySelector('.panel-title').textContent;
   const chips = p.querySelectorAll('.meta-chip');
@@ -1154,7 +1274,6 @@ function savePanel() {
   if (chips[1]) chips[1].textContent = document.getElementById('edit-rest').value   || chips[1].textContent;
   if (chips[2]) chips[2].textContent = document.getElementById('edit-level').value  || chips[2].textContent;
 
-  // Update exercises
   const rows = document.querySelectorAll('#edit-exercises .ex-edit-row');
   const exList = p.querySelector('.ex-list');
   exList.innerHTML = '';
@@ -1175,6 +1294,7 @@ function savePanel() {
       '</div>';
   });
 
+  saveToCloud(getAllPanelData());
   closeModal();
 }
 
@@ -1187,6 +1307,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeModal(); closeOverlay(); }
 });
 
+// ── INIT ──
+window.addEventListener('load', () => { loadFromCloud(); });
 
 // ── FULLSCREEN ──
 function toggleFullscreen() {
