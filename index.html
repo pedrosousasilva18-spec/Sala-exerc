@@ -485,12 +485,11 @@
   .btn-save { background: #ff3c00; border: none; border-radius: 5px; color: #fff; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; padding: 7px 22px; transition: opacity 0.15s; }
   .btn-save:hover { opacity: 0.82; }
 
-/* ─── ADMIN SCHEDULE v2 ──────────────────────────── */
 .admin-btn{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:3px;color:var(--accent3);border:1px solid rgba(170,255,0,.3);background:rgba(170,255,0,.06);cursor:pointer;padding:4px 12px;border-radius:5px;transition:all .15s;margin-left:6px}
-.admin-btn:hover{background:rgba(170,255,0,.12);border-color:var(--accent3)}
+.admin-btn:hover{background:rgba(170,255,0,.15);border-color:var(--accent3)}
 .admin-ovl{display:none;position:fixed;inset:0;background:var(--bg);z-index:800;flex-direction:column;overflow:hidden}
-.admin-ovl.active{display:flex}
-.admin-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:#0d0d0d;border-bottom:2px solid var(--border);flex-shrink:0;font-family:'Barlow Condensed',sans-serif}
+.admin-ovl.open{display:flex}
+.admin-topbar{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:#0d0d0d;border-bottom:2px solid var(--border);flex-shrink:0}
 .admin-ttl{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:4px;color:var(--accent3)}
 .admin-mnav{display:flex;align-items:center;gap:8px}
 .admin-mlbl{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:4px;min-width:200px;text-align:center}
@@ -509,9 +508,9 @@
 .admin-cg{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px}
 .admin-cc{min-height:86px;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:6px;cursor:pointer;display:flex;flex-direction:column;gap:3px;transition:border-color .12s}
 .admin-cc:hover{border-color:#3a3a3a}
-.admin-cc.atoday{border-color:var(--accent2)}
+.admin-cc.atoday{border-color:var(--accent2)!important}
 .admin-cc.adim{opacity:.2;pointer-events:none}
-.admin-cc.asel{border-color:#fff}
+.admin-cc.asel{border-color:#fff!important}
 .admin-dn{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;color:var(--muted);line-height:1;margin-bottom:2px}
 .admin-cc.atoday .admin-dn{color:var(--accent2)}
 .admin-pchips{display:flex;flex-direction:column;gap:2px}
@@ -519,29 +518,26 @@
 .admin-lgnd{display:flex;flex-wrap:wrap;gap:14px;padding-top:14px;border-top:1px solid var(--border)}
 .admin-li{display:flex;align-items:center;gap:6px;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
 .admin-ldot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
-/* ── Day modal ── */
 .admin-movl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:850;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
-.admin-movl.active{display:flex}
+.admin-movl.open{display:flex}
 .admin-modal{background:#141414;border:1px solid #2a2a2a;border-radius:10px;width:640px;max-width:96vw;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;font-family:'Barlow Condensed',sans-serif}
 .admin-mhdr{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #222;flex-shrink:0}
 .admin-mttl{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:4px}
 .admin-mdt{font-size:.65rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:2px}
 .admin-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #222;flex-shrink:0}
-.admin-tab{padding:9px 4px;font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:2px;text-align:center;cursor:pointer;border-right:1px solid #1a1a1a;color:var(--muted);transition:all .12s;position:relative;text-transform:uppercase}
+.admin-tab{padding:9px 4px;font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:2px;text-align:center;cursor:pointer;border-right:1px solid #1a1a1a;color:var(--muted);transition:all .12s;position:relative}
 .admin-tab:last-child{border-right:none}
 .admin-tab:hover{color:var(--text);background:#1a1a1a}
-.admin-tab.atab-active{color:var(--text);background:#111}
-.admin-tab .atab-line{position:absolute;bottom:0;left:0;right:0;height:2px;background:transparent;transition:background .12s}
-.admin-tab.atab-active .atab-line{background:currentColor}
-.admin-tab .atab-dot{width:6px;height:6px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
+.admin-tab.on{background:#111}
+.admin-tab-line{position:absolute;bottom:0;left:0;right:0;height:2px}
+.admin-tab-dot{width:6px;height:6px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
 .admin-mbody{flex:1;overflow-y:auto;padding:14px 18px;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
-.admin-slbl{font-size:.58rem;letter-spacing:3px;color:#444;text-transform:uppercase;border-bottom:1px solid #1f1f1f;padding-bottom:4px;margin-bottom:8px;margin-top:14px;display:block}
+.admin-slbl{font-size:.58rem;letter-spacing:3px;color:#555;text-transform:uppercase;border-bottom:1px solid #1f1f1f;padding-bottom:4px;margin-bottom:8px;margin-top:14px;display:block}
 .admin-slbl:first-child{margin-top:0}
-.admin-exhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;margin-top:14px}
-.admin-excnt{font-size:.62rem;letter-spacing:2px;color:var(--muted);margin-left:6px}
-.admin-exacts{display:flex;gap:4px}
+.admin-exbar{display:flex;align-items:center;gap:6px;margin-bottom:6px;margin-top:14px;flex-wrap:wrap}
+.admin-excnt{font-size:.62rem;letter-spacing:2px;color:var(--muted)}
 .admin-exact{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid #2a2a2a;background:none;color:var(--muted);cursor:pointer}
-.admin-exact:hover{border-color:#444;color:var(--text)}
+.admin-exact:hover{border-color:#555;color:var(--text)}
 .admin-el{border:1px solid #2a2a2a;border-radius:6px;overflow:hidden;max-height:185px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#2a2a2a transparent}
 .admin-ei{display:flex;align-items:center;gap:8px;padding:8px 10px;cursor:pointer;border-bottom:1px solid #1f1f1f;transition:background .1s}
 .admin-ei:last-child{border-bottom:none}
@@ -554,13 +550,13 @@
 .admin-edel{background:none;border:none;cursor:pointer;color:#333;font-size:.8rem;padding:2px 5px;border-radius:3px;flex-shrink:0;transition:color .1s}
 .admin-edel:hover{color:var(--accent1)}
 .admin-empt{font-size:.72rem;letter-spacing:1px;color:var(--muted);padding:8px 0;text-transform:uppercase}
-.admin-addrow{margin-top:8px}
+.admin-addrow{margin-top:10px}
 .admin-add-lbl{font-size:.55rem;letter-spacing:3px;color:#444;text-transform:uppercase;margin-bottom:5px}
 .admin-add-fields{display:flex;gap:5px;align-items:center}
-.admin-ai{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:5px;padding:6px 10px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s}
+.admin-ai{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:5px;padding:7px 10px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;outline:none;transition:border-color .15s;letter-spacing:.5px}
 .admin-ai:focus{border-color:#555}
 .admin-ai-sep{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;color:var(--muted);flex-shrink:0}
-.admin-addbtn{background:var(--accent3);border:none;border-radius:5px;color:#000;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.admin-addbtn{background:var(--accent3);border:none;border-radius:5px;color:#000;cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
 .admin-addbtn:hover{opacity:.8}
 .admin-noteinput{width:100%;height:44px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:5px;padding:7px 10px;color:var(--text);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;outline:none;resize:none;letter-spacing:.5px}
 .admin-noteinput:focus{border-color:#555}
@@ -569,9 +565,9 @@
 .admin-bclr:hover{text-decoration:underline}
 .admin-bcancel{background:none;border:1px solid #2a2a2a;border-radius:5px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.78rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;padding:6px 14px;transition:all .15s}
 .admin-bcancel:hover{border-color:#555;color:var(--text)}
-.admin-bsave{background:var(--accent3);border:none;border-radius:5px;color:#000;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:3px;padding:6px 20px;cursor:pointer;transition:opacity .15s}
+.admin-bsave{background:var(--accent3);border:none;border-radius:5px;color:#000;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:3px;padding:7px 22px;cursor:pointer;transition:opacity .15s}
 .admin-bsave:hover{opacity:.85}
-.today-badge{display:inline-block;font-size:.55rem;letter-spacing:2px;text-transform:uppercase;padding:1px 6px;border-radius:3px;margin-left:8px;background:rgba(0,229,255,.1);color:var(--accent2);border:1px solid rgba(0,229,255,.25);vertical-align:middle}
+.admin-tbadge{display:inline-block;font-size:.55rem;letter-spacing:2px;padding:1px 6px;border-radius:3px;margin-left:8px;background:rgba(0,229,255,.1);color:var(--accent2);border:1px solid rgba(0,229,255,.25);vertical-align:middle}
 
 </style>
 </head>
@@ -1287,339 +1283,6 @@ function toggleFullscreen() {
 }
 
 window.addEventListener('load', loadFromCloud);
-
-// ─── ADMIN SCHEDULE v2 ─────────────────────────────────────────────
-(function(){
-const MP=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const WD=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
-
-// 4 panels — index matches .panel nth-child order
-const PANELS=[
-  {idx:0, label:'Força MS',  short:'Força',   accent:'--accent1', bg:'rgba(255,60,0,.15)',  bd:'rgba(255,60,0,.5)',  tx:'#ff3c00'},
-  {idx:1, label:'Queima',    short:'Queima',  accent:'--accent2', bg:'rgba(0,229,255,.1)',  bd:'rgba(0,229,255,.35)',tx:'#00e5ff'},
-  {idx:2, label:'Core',      short:'Core',    accent:'--accent3', bg:'rgba(170,255,0,.1)',  bd:'rgba(170,255,0,.35)',tx:'#aaff00'},
-  {idx:3, label:'Pernas',    short:'Pernas',  accent:'--accent4', bg:'rgba(255,0,170,.1)',  bd:'rgba(255,0,170,.35)',tx:'#ff00aa'},
-];
-
-// Default exercises per panel
-const DEF_EX=[
-  [{id:'s1',n:'Supino com Barra',sets:4,reps:8},{id:'s2',n:'Remada com Barra',sets:4,reps:10},{id:'s3',n:'Press Militar',sets:3,reps:10},{id:'s4',n:'Pull-Ups / Puxadas',sets:3,reps:'Max'},{id:'s5',n:'Curl de Bíceps',sets:3,reps:12},{id:'s6',n:'Tríceps na Polia',sets:3,reps:15}],
-  [{id:'q1',n:'Burpees',sets:0,reps:'30s'},{id:'q2',n:'Mountain Climbers',sets:0,reps:'30s'},{id:'q3',n:'Jump Squats',sets:0,reps:'30s'},{id:'q4',n:'High Knees',sets:0,reps:'30s'},{id:'q5',n:'Box Jumps',sets:0,reps:'30s'},{id:'q6',n:'Skipping',sets:0,reps:'30s'}],
-  [{id:'c1',n:'Prancha Frontal',sets:0,reps:'60s'},{id:'c2',n:'Crunch Bicicleta',sets:3,reps:20},{id:'c3',n:'Dead Bug',sets:3,reps:12},{id:'c4',n:'Prancha Lateral',sets:2,reps:'45s'},{id:'c5',n:'Russian Twists',sets:3,reps:20},{id:'c6',n:'Leg Raises',sets:3,reps:15}],
-  [{id:'p1',n:'Agachamento Livre',sets:4,reps:10},{id:'p2',n:'Afundos Alternados',sets:3,reps:12},{id:'p3',n:'Extensão de Quadril',sets:4,reps:15},{id:'p4',n:'Leg Press',sets:4,reps:12},{id:'p5',n:'Stiff com Halteres',sets:3,reps:12},{id:'p6',n:'Elevação de Gémeos',sets:4,reps:20}],
-];
-
-// Default panel details (badge per exercise)
-const DEF_DETAIL=[
-  ['Agarra a barra à largura dos ombros — peito ativo, cotovelos a 45°','Tronco a 45°, puxa em direção ao umbigo, escápulas para dentro','De pé, core contraído — empurra para cima sem arquear a lombar','Agarre pronado — desce até extensão completa do cotovelo','Cotovelos fixos ao tronco — concentra na fase excêntrica','Cotovelos fixos, extensão completa, sem balançar o tronco'],
-  ['Máxima intensidade — queda controlada, extensão completa no salto','Quadril baixo, core ativado — ritmo rápido mas controlado','Aterragem suave — joelhos alinhados com os pés, coxa paralela ao chão','Joelhos acima da anca, braços a bombar — mantém o ritmo','Impulso dos dois pés — aterragem suave no centro da box','Corda ou simulado — ritmo constante, pulso a girar'],
-  ['Corpo em linha reta, glúteos ativados — respira de forma controlada','Cotovelo oposto ao joelho — lombar colada ao chão durante todo o movimento','Braço e perna opostos — lombar permanece encostada ao tapete','Quadril elevado, corpo em plano lateral — não deixa o quadril cair','Pés elevados ou no chão — rotação completa de cada lado com controlo','Lombar colada, pernas juntas — desce sem tocar no chão'],
-  ['Pés à largura dos ombros — coxa paralela ao chão, joelhos sobre os pés','Passo largo à frente — joelho da frente a 90°, não ultrapassa o pé','Glúteos contraídos no topo — controla a descida de forma excêntrica','Pés no centro da plataforma — não trava os joelhos na extensão','Costas retas, descida ao longo das pernas — sente o isquiotibial','Amplitude completa — pausa de 1s no topo, desce controlado'],
-];
-
-function fmtEx(ex){return ex.sets&&ex.sets>0?ex.sets+'x'+ex.reps:String(ex.reps)}
-function allEx(pIdx){return DEF_EX[pIdx].concat(st.cex[pIdx]||[])}
-
-// State
-// schedule[dateKey][panelIdx] = {exercises:[...ids]|null, note:''}
-// exercises null = all default; [] = none; [...] = subset
-const st={
-  year:new Date().getFullYear(),
-  month:new Date().getMonth(),
-  schedule:{},  // {dateKey: {0:{exercises,note},1:...,2:...,3:...}}
-  cex:{0:[],1:[],2:[],3:[]},
-  modal:null,   // {day, panelTab}
-};
-
-const TODAY=(function(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')})();
-
-function dk(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
-function pk(k){const p=k.split('-').map(Number);return{year:p[0],month:p[1]-1,day:p[2]}}
-function fmtKey(k){const p=pk(k);return String(p.day).padStart(2,'0')+' '+MP[p.month].substring(0,3).toUpperCase()+' '+p.year}
-
-function caldays(y,m){
-  const fd=new Date(y,m,1).getDay(),dm=new Date(y,m+1,0).getDate(),pd=new Date(y,m,0).getDate(),days=[];
-  for(let i=fd-1;i>=0;i--){const pm=m===0?11:m-1,py=m===0?y-1:y;days.push({key:dk(py,pm,pd-i),day:pd-i,cur:false})}
-  for(let d=1;d<=dm;d++)days.push({key:dk(y,m,d),day:d,cur:true});
-  for(let d=1;days.length<42;d++){const nm=m===11?0:m+1,ny=m===11?y+1:y;days.push({key:dk(ny,nm,d),day:d,cur:false})}
-  return days;
-}
-
-function countDays(y,m){
-  const pfx=y+'-'+String(m+1).padStart(2,'0');
-  let total=0,byPanel=[0,0,0,0];
-  Object.keys(st.schedule).forEach(function(k){
-    if(!k.startsWith(pfx))return;
-    const dayData=st.schedule[k];
-    PANELS.forEach(function(p){
-      if(dayData[p.idx]&&dayData[p.idx].exercises!==null&&!(Array.isArray(dayData[p.idx].exercises)&&dayData[p.idx].exercises.length===0)){
-        byPanel[p.idx]++;total++;
-      }else if(dayData[p.idx]&&dayData[p.idx].exercises===null){
-        // null = keep all default = also counts as scheduled only if explicitly set
-      }
-    });
-  });
-  return{total:total,byPanel:byPanel,days:new Date(y,m+1,0).getDate()};
-}
-
-function dayHasAny(key){
-  const d=st.schedule[key];if(!d)return false;
-  return PANELS.some(function(p){return d[p.idx]&&d[p.idx].exercises!==null});
-}
-
-function capNote(){const t=document.getElementById('admNote');if(t&&st.modal)st.modal.panelData[st.modal.panelTab].note=t.value}
-function capForm(){const n=document.getElementById('admExN'),s=document.getElementById('admExS'),r=document.getElementById('admExR');return{name:n?n.value:'',sets:s?s.value:'',reps:r?r.value:''}}
-function reatt(saved){
-  const t=document.getElementById('admNote');if(t&&st.modal)t.oninput=function(e){st.modal.panelData[st.modal.panelTab].note=e.target.value};
-  const n=document.getElementById('admExN'),s=document.getElementById('admExS'),r=document.getElementById('admExR');
-  if(n){if(saved&&saved.name)n.value=saved.name;n.onkeydown=function(e){if(e.key==='Enter')addEx()}}
-  if(s&&saved&&saved.sets)s.value=saved.sets;
-  if(r){if(saved&&saved.reps)r.value=saved.reps;r.onkeydown=function(e){if(e.key==='Enter')addEx()}}
-}
-
-function renderCal(){
-  const y=st.year,m=st.month,days=caldays(y,m),C=countDays(y,m);
-  document.getElementById('adminMlbl').textContent=MP[m]+' '+y;
-  document.getElementById('adminStats').innerHTML=
-    '<div class="adm-sc"><div class="adm-sl">Sessões marcadas</div><div class="adm-sv" style="color:var(--accent3)">'+C.total+'</div><div class="adm-ss">de '+C.days+' dias</div></div>'+
-    '<div class="adm-sc"><div class="adm-sl">Força / Pernas</div><div class="adm-sv">'+(C.byPanel[0]+C.byPanel[3])+'</div><div class="adm-ss">'+C.byPanel[0]+'F · '+C.byPanel[3]+'P</div></div>'+
-    '<div class="adm-sc"><div class="adm-sl">Queima / Core</div><div class="adm-sv">'+(C.byPanel[1]+C.byPanel[2])+'</div><div class="adm-ss">'+C.byPanel[1]+'Q · '+C.byPanel[2]+'C</div></div>'+
-    '<div class="adm-sc"><div class="adm-sl">Hoje</div><div class="adm-sv" style="color:var(--accent2)">'+String(new Date().getDate()).padStart(2,'0')+'</div><div class="adm-ss">'+MP[new Date().getMonth()]+' '+new Date().getFullYear()+'</div></div>';
-  document.getElementById('adminWdh').innerHTML=WD.map(function(d){return '<div class="admin-wdl">'+d+'</div>'}).join('');
-  let cgHtml='';
-  days.forEach(function(item){
-    const key=item.key,day=item.day,cur=item.cur;
-    const dayData=st.schedule[key]||{};
-    const isSel=st.modal&&st.modal.day===key;
-    let cls='admin-cc';if(!cur)cls+=' adim';if(key===TODAY)cls+=' atoday';if(isSel)cls+=' asel';
-    const chips=PANELS.map(function(p){
-      const pd=dayData[p.idx];
-      if(!pd||pd.exercises===null)return'';
-      const exList=allEx(p.idx);
-      const selN=pd.exercises.length;
-      const lbl=selN>0?p.short+' \u00b7'+selN:p.short;
-      return'<span class="admin-pchip" style="background:'+p.bg+';border:1px solid '+p.bd+';color:'+p.tx+'">'+lbl+'</span>';
-    }).join('');
-    const click=cur?' onclick="openDay(\''+key+'\')"':'';
-    cgHtml+='<div class="'+cls+'"'+click+'><span class="admin-dn">'+day+'</span><div class="admin-pchips">'+chips+'</div></div>';
-  });
-  document.getElementById('adminCg').innerHTML=cgHtml;
-  let lgHtml=PANELS.map(function(p){return'<div class="admin-li"><span class="admin-ldot" style="background:'+p.bg+';border:1px solid '+p.bd+'"></span>'+p.label+'</div>'}).join('');
-  document.getElementById('adminLgnd').innerHTML=lgHtml;
-}
-
-function renderModal(){
-  const ovl=document.getElementById('adminMovl');
-  if(!st.modal){ovl.classList.remove('active');return}
-  ovl.classList.add('active');
-  const day=st.modal.day,tab=st.modal.panelTab,pd=st.modal.panelData[tab];
-  const p=PANELS[tab];
-  const exList=allEx(tab);
-  const aset=pd.exercises?new Set(pd.exercises):new Set(exList.map(function(e){return e.id}));
-  const selN=aset.size;
-  // Tabs
-  let tabsHtml=PANELS.map(function(pp,i){
-    const dayPd=st.modal.panelData[i];
-    const hasSched=dayPd.exercises!==null;
-    const dot=hasSched?'<span class="atab-dot" style="background:'+pp.bg+';border:1px solid '+pp.bd+'"></span>':'';
-    return'<div class="admin-tab'+(i===tab?' atab-active':'')+'" onclick="switchTab('+i+')" style="'+(i===tab?'color:'+pp.tx:'')+'">'+dot+pp.short+'<div class="atab-line"></div></div>';
-  }).join('');
-  // Exercise list
-  let exHtml='';
-  if(exList.length){
-    exList.forEach(function(ex){
-      const on=aset.has(ex.id);
-      const chk=on?'<span style="color:#000;font-size:10px;font-weight:900">&#10003;</span>':'';
-      const del=ex.custom?'<button class="admin-edel" onclick="event.stopPropagation();delEx(\''+ex.id+'\')" title="Remover">&#10005;</button>':'';
-      const ntag=ex.custom?'<span class="admin-ctag">NOVO</span>':'';
-      exHtml+='<div class="admin-ei" onclick="togEx(\''+ex.id+'\')"><span class="admin-ek'+(on?' on':'')+'">'+chk+'</span><span class="admin-en">'+ex.n+'</span>'+ntag+'<span class="admin-eset">'+fmtEx(ex)+'</span>'+del+'</div>';
-    });
-    exHtml='<div class="admin-el">'+exHtml+'</div>';
-  } else {
-    exHtml='<div class="admin-empt">Sem exercícios — adiciona abaixo.</div>';
-  }
-  const isCustomDay=pd.exercises!==null;
-  document.getElementById('adminModal').innerHTML=
-    '<div class="admin-mhdr"><div><div class="admin-mttl">CONFIGURAR DIA'+(day===TODAY?'<span class="today-badge">HOJE</span>':'')+'</div><div class="admin-mdt">'+fmtKey(day)+'</div></div>'+
-    '<button style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.3rem;line-height:1;font-family:inherit" onclick="closeDay()">&#10005;</button></div>'+
-    '<div class="admin-tabs">'+tabsHtml+'</div>'+
-    '<div class="admin-mbody">'+
-      '<span class="admin-slbl">Exercícios para este dia<span style="color:'+(isCustomDay?p.tx:'#444')+'"> — '+(isCustomDay?selN+'/'+exList.length+' selecionados':'padrão (todos)')+'</span></span>'+
-      '<div class="admin-exhdr"><div style="display:flex;align-items:center;gap:6px">'+
-        (isCustomDay?'<button class="admin-exact" onclick="resetToDefault()">Usar Padrão</button>':'<button class="admin-exact" style="border-color:'+p.bd+';color:'+p.tx+'" onclick="enableCustom()">Personalizar</button>')+
-        '<button class="admin-exact" onclick="selAll()">Todos</button><button class="admin-exact" onclick="clrAll()">Nenhum</button>'+
-      '</div></div>'+
-      exHtml+
-      '<div class="admin-addrow"><div class="admin-add-lbl">Novo exercício</div><div class="admin-add-fields"><input class="admin-ai" type="text" id="admExN" placeholder="Nome do exercício..." autocomplete="off" style="flex:1"/><input class="admin-ai" type="number" id="admExS" placeholder="Séries" min="1" style="width:58px;text-align:center"/><span class="admin-ai-sep">&#215;</span><input class="admin-ai" type="text" id="admExR" placeholder="Reps" autocomplete="off" style="width:58px;text-align:center"/><button class="admin-addbtn" onclick="addEx()">+</button></div></div>'+
-      '<span class="admin-slbl" style="margin-top:12px">Nota</span>'+
-      '<textarea class="admin-noteinput" id="admNote" placeholder="EX: FOCO NA TÉCNICA, AUMENTAR CARGA...">'+pd.note+'</textarea>'+
-    '</div>'+
-    '<div class="admin-mftr">'+
-      '<button class="admin-bclr" onclick="clearDay()">&#10005; LIMPAR DIA</button>'+
-      '<div style="display:flex;gap:8px"><button class="admin-bcancel" onclick="closeDay()">Cancelar</button><button class="admin-bsave" onclick="saveDay()">GUARDAR</button></div>'+
-    '</div>';
-  reatt();
-}
-
-// Load panel data for a day into modal state
-function loadDayModal(key){
-  const saved=st.schedule[key]||{};
-  const panelData={};
-  PANELS.forEach(function(p){
-    const pd=saved[p.idx]||null;
-    panelData[p.idx]={
-      exercises: pd?pd.exercises:null,  // null = default (not yet customized)
-      note: pd?pd.note:''
-    };
-  });
-  return panelData;
-}
-
-window.openAdmin=function(){document.getElementById('adminOvl').classList.add('active');renderCal()};
-window.closeAdmin=function(){document.getElementById('adminOvl').classList.remove('active');if(st.modal){st.modal=null;document.getElementById('adminMovl').classList.remove('active')}};
-window.adminPrevM=function(){if(st.month===0){st.month=11;st.year--}else st.month--;renderCal()};
-window.adminNextM=function(){if(st.month===11){st.month=0;st.year++}else st.month++;renderCal()};
-
-window.openDay=function(key){
-  st.modal={day:key,panelTab:0,panelData:loadDayModal(key)};
-  renderCal();renderModal();
-};
-window.closeDay=function(){st.modal=null;renderCal();document.getElementById('adminMovl').classList.remove('active')};
-
-window.switchTab=function(i){capNote();st.modal.panelTab=i;renderModal();reatt()};
-window.enableCustom=function(){capNote();const tab=st.modal.panelTab;const all=allEx(tab).map(function(e){return e.id});st.modal.panelData[tab].exercises=all.slice();renderModal();reatt()};
-window.resetToDefault=function(){capNote();const af=capForm();st.modal.panelData[st.modal.panelTab].exercises=null;renderModal();reatt(af)};
-window.togEx=function(id){
-  capNote();const af=capForm();const tab=st.modal.panelTab;const all=allEx(tab).map(function(e){return e.id});
-  let cur=st.modal.panelData[tab].exercises?st.modal.panelData[tab].exercises.slice():all.slice();
-  const i=cur.indexOf(id);if(i>=0)cur.splice(i,1);else cur.push(id);
-  st.modal.panelData[tab].exercises=cur.length===all.length?null:cur;
-  renderModal();reatt(af);
-};
-window.selAll=function(){capNote();const af=capForm();st.modal.panelData[st.modal.panelTab].exercises=null;renderModal();reatt(af)};
-window.clrAll=function(){capNote();const af=capForm();st.modal.panelData[st.modal.panelTab].exercises=[];renderModal();reatt(af)};
-
-window.addEx=function(){
-  if(!st.modal)return;capNote();
-  const ne=document.getElementById('admExN'),se=document.getElementById('admExS'),re=document.getElementById('admExR');
-  const name=(ne?ne.value:'').trim();
-  if(!name){if(ne){ne.style.borderColor='var(--accent1)';setTimeout(function(){ne.style.borderColor=''},1200)}return}
-  const sets=se?parseInt(se.value)||0:0,reps=(re?re.value.trim():'')||'—',id='cx-'+Date.now(),tab=st.modal.panelTab;
-  if(!st.cex[tab])st.cex[tab]=[];
-  st.cex[tab].push({id:id,n:name,sets:sets,reps:reps,custom:true});
-  const pd=st.modal.panelData[tab];
-  if(pd.exercises!==null)pd.exercises.push(id);
-  admSave();renderModal();reatt();
-  [document.getElementById('admExN'),document.getElementById('admExS'),document.getElementById('admExR')].forEach(function(el){if(el)el.value=''});
-  const n2=document.getElementById('admExN');if(n2)n2.focus();
-};
-
-window.delEx=function(id){
-  capNote();const af=capForm();const tab=st.modal.panelTab;
-  st.cex[tab]=(st.cex[tab]||[]).filter(function(e){return e.id!==id});
-  const pd=st.modal.panelData[tab];
-  if(pd.exercises)pd.exercises=pd.exercises.filter(function(x){return x!==id});
-  Object.keys(st.schedule).forEach(function(d){
-    const dd=st.schedule[d];if(!dd||!dd[tab])return;
-    if(dd[tab].exercises)dd[tab].exercises=dd[tab].exercises.filter(function(x){return x!==id});
-  });
-  admSave();renderModal();reatt(af);
-};
-
-window.saveDay=function(){
-  if(!st.modal)return;capNote();
-  const key=st.modal.day;
-  const saved={};
-  let hasAny=false;
-  PANELS.forEach(function(p){
-    const pd=st.modal.panelData[p.idx];
-    // Only store if explicitly customized (exercises!==null) or has a note
-    if(pd.exercises!==null||pd.note){
-      saved[p.idx]={exercises:pd.exercises,note:pd.note};
-      hasAny=true;
-    }
-  });
-  if(hasAny) st.schedule[key]=saved;
-  else delete st.schedule[key];
-  admSave();
-  applyTodayToGrid();
-  st.modal=null;renderCal();document.getElementById('adminMovl').classList.remove('active');
-};
-
-window.clearDay=function(){
-  if(!st.modal)return;delete st.schedule[st.modal.day];
-  admSave();applyTodayToGrid();
-  st.modal=null;renderCal();document.getElementById('adminMovl').classList.remove('active');
-};
-
-function admSave(){
-  try{localStorage.setItem('tbl-v2-sched',JSON.stringify(st.schedule));localStorage.setItem('tbl-v2-cex',JSON.stringify(st.cex))}catch(e){}
-}
-function admLoad(){
-  try{
-    const r1=localStorage.getItem('tbl-v2-sched');if(r1)st.schedule=JSON.parse(r1);
-    const r2=localStorage.getItem('tbl-v2-cex');if(r2){const c=JSON.parse(r2);if(c&&typeof c==='object'){[0,1,2,3].forEach(function(i){if(c[i])st.cex[i]=c[i]})}}
-  }catch(e){}
-}
-
-// ── Apply today's schedule to the main grid ──────────────────────────
-function escH(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-window.applyTodayToGrid=function(){
-  const dayData=st.schedule[TODAY];
-  const panels=document.querySelectorAll('.panel');
-  PANELS.forEach(function(p,pIdx){
-    const panel=panels[pIdx];if(!panel)return;
-    const exList=allEx(pIdx);
-    let activeExs;
-    if(dayData&&dayData[pIdx]&&dayData[pIdx].exercises!==null){
-      const ids=dayData[pIdx].exercises;
-      if(ids.length===0){
-        // No exercises configured — keep defaults
-        activeExs=null;
-      } else {
-        activeExs=ids.map(function(id){return exList.find(function(e){return e.id===id})}).filter(Boolean);
-      }
-    } else {
-      activeExs=null; // use defaults already in DOM
-    }
-    // Note on panel header
-    const note=(dayData&&dayData[pIdx]&&dayData[pIdx].note)||'';
-    let noteEl=panel.querySelector('.adm-day-note');
-    if(note){
-      if(!noteEl){noteEl=document.createElement('div');noteEl.className='adm-day-note';noteEl.style.cssText='font-size:.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:3px 16px 4px;background:#0e0e0e;border-bottom:1px solid var(--border);flex-shrink:0';panel.querySelector('.ex-list').before(noteEl)}
-      noteEl.textContent=note;
-    } else if(noteEl){noteEl.remove()}
-    if(activeExs){
-      const exListEl=panel.querySelector('.ex-list');
-      exListEl.innerHTML='';
-      activeExs.forEach(function(ex,i){
-        const badge=fmtEx(ex);
-        exListEl.innerHTML+='<div class="ex-item">'+
-          '<span class="ex-num">'+String(i+1).padStart(2,'0')+'</span>'+
-          '<div class="ex-body">'+
-            '<div class="ex-name">'+escH(ex.n)+'</div>'+
-            '<div class="ex-detail">'+(DEF_DETAIL[pIdx][i]||'')+'</div>'+
-          '</div>'+
-          '<span class="ex-badge">'+escH(badge)+'</span>'+
-          '</div>';
-      });
-    }
-  });
-};
-
-// Init
-admLoad();
-applyTodayToGrid();
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){
-    if(document.getElementById('adminMovl').classList.contains('active')){closeDay();return}
-    if(document.getElementById('adminOvl').classList.contains('active')){closeAdmin();return}
-  }
-});
-document.getElementById('adminMovl').addEventListener('click',function(e){if(e.target===this)closeDay()});
-})();
-
 </script>
 
 <!-- EDIT MODAL -->
@@ -1655,28 +1318,320 @@ document.getElementById('adminMovl').addEventListener('click',function(e){if(e.t
   </div>
 </div>
 
-<!-- ADMIN SCHEDULE OVERLAY -->
+<!-- ADMIN OVERLAY -->
 <div class="admin-ovl" id="adminOvl">
   <div class="admin-topbar">
     <div class="admin-ttl">AGENDAMENTO MENSAL</div>
     <div class="admin-mnav">
-      <button class="admin-nb" onclick="adminPrevM()">&#8249;</button>
-      <span class="admin-mlbl" id="adminMlbl"></span>
-      <button class="admin-nb" onclick="adminNextM()">&#8250;</button>
+      <button class="admin-nb" onclick="admPrevM()">&#8249;</button>
+      <span class="admin-mlbl" id="admMlbl"></span>
+      <button class="admin-nb" onclick="admNextM()">&#8250;</button>
     </div>
-    <button class="admin-xbtn" onclick="closeAdmin()">&#x2715; FECHAR</button>
+    <button class="admin-xbtn" onclick="admClose()">&#x2715; FECHAR</button>
   </div>
   <div class="admin-body">
-    <div class="admin-stats" id="adminStats"></div>
-    <div class="admin-wdh" id="adminWdh"></div>
-    <div class="admin-cg" id="adminCg"></div>
-    <div class="admin-lgnd" id="adminLgnd"></div>
+    <div class="admin-stats" id="admStats"></div>
+    <div class="admin-wdh" id="admWdh"></div>
+    <div class="admin-cg" id="admCg"></div>
+    <div class="admin-lgnd" id="admLgnd"></div>
   </div>
 </div>
-<!-- ADMIN DAY MODAL -->
-<div class="admin-movl" id="adminMovl">
-  <div class="admin-modal" id="adminModal"></div>
+<div class="admin-movl" id="admMovl">
+  <div class="admin-modal" id="admModal"></div>
 </div>
+
+<script>
+// ── ADMIN SCHEDULE ─────────────────────────────────────────
+var ADM = (function() {
+  var MP = ['Janeiro','Fevereiro','Marco','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  var WD = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+  var P = [
+    {i:0, lb:'Forca MS', sh:'Forca',  bg:'rgba(255,60,0,.18)',  bd:'rgba(255,60,0,.6)',   tx:'#ff3c00'},
+    {i:1, lb:'Queima',   sh:'Queima', bg:'rgba(0,229,255,.12)', bd:'rgba(0,229,255,.45)', tx:'#00e5ff'},
+    {i:2, lb:'Core',     sh:'Core',   bg:'rgba(170,255,0,.12)', bd:'rgba(170,255,0,.45)', tx:'#aaff00'},
+    {i:3, lb:'Pernas',   sh:'Pernas', bg:'rgba(255,0,170,.12)', bd:'rgba(255,0,170,.45)', tx:'#ff00aa'},
+  ];
+  var DEFEX = [
+    [{id:'s1',n:'Supino com Barra',s:4,r:8},{id:'s2',n:'Remada com Barra',s:4,r:10},{id:'s3',n:'Press Militar',s:3,r:10},{id:'s4',n:'Pull-Ups',s:3,r:'Max'},{id:'s5',n:'Curl de Biceps',s:3,r:12},{id:'s6',n:'Triceps na Polia',s:3,r:15}],
+    [{id:'q1',n:'Burpees',s:0,r:'30s'},{id:'q2',n:'Mountain Climbers',s:0,r:'30s'},{id:'q3',n:'Jump Squats',s:0,r:'30s'},{id:'q4',n:'High Knees',s:0,r:'30s'},{id:'q5',n:'Box Jumps',s:0,r:'30s'},{id:'q6',n:'Skipping',s:0,r:'30s'}],
+    [{id:'c1',n:'Prancha Frontal',s:0,r:'60s'},{id:'c2',n:'Crunch Bicicleta',s:3,r:20},{id:'c3',n:'Dead Bug',s:3,r:12},{id:'c4',n:'Prancha Lateral',s:2,r:'45s'},{id:'c5',n:'Russian Twists',s:3,r:20},{id:'c6',n:'Leg Raises',s:3,r:15}],
+    [{id:'p1',n:'Agachamento Livre',s:4,r:10},{id:'p2',n:'Afundos Alternados',s:3,r:12},{id:'p3',n:'Extensao Quadril',s:4,r:15},{id:'p4',n:'Leg Press',s:4,r:12},{id:'p5',n:'Stiff com Halteres',s:3,r:12},{id:'p6',n:'Elevacao Gemeos',s:4,r:20}],
+  ];
+  var cex = {0:[],1:[],2:[],3:[]};
+  var sched = {};
+  var modal = null;
+  var year = new Date().getFullYear();
+  var month = new Date().getMonth();
+  var d0 = new Date();
+  var TODAY = d0.getFullYear()+'-'+pad(d0.getMonth()+1)+'-'+pad(d0.getDate());
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function dk(y,m,d) { return y+'-'+pad(m+1)+'-'+pad(d); }
+  function fmt(ex) { return (ex.s && ex.s>0) ? ex.s+'x'+ex.r : String(ex.r); }
+  function allEx(pi) { return DEFEX[pi].concat(cex[pi]||[]); }
+  function h(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function calDays(y,m) {
+    var fd=new Date(y,m,1).getDay(), dm=new Date(y,m+1,0).getDate(), pd=new Date(y,m,0).getDate(), days=[];
+    for (var i=fd-1;i>=0;i--) { var pm=m===0?11:m-1,py=m===0?y-1:y; days.push({k:dk(py,pm,pd-i),d:pd-i,cur:false}); }
+    for (var dd=1;dd<=dm;dd++) days.push({k:dk(y,m,dd),d:dd,cur:true});
+    for (var d2=1;days.length<42;d2++) { var nm=m===11?0:m+1,ny=m===11?y+1:y; days.push({k:dk(ny,nm,d2),d:d2,cur:false}); }
+    return days;
+  }
+
+  function countMonth(y,m) {
+    var pfx=y+'-'+pad(m+1), tot=0, byP=[0,0,0,0];
+    Object.keys(sched).forEach(function(k) {
+      if (!k.startsWith(pfx)) return;
+      P.forEach(function(p) {
+        var pd=sched[k]&&sched[k][p.i]; if(pd&&pd.exs&&pd.exs.length) { byP[p.i]++; tot++; }
+      });
+    });
+    return {tot:tot, byP:byP, days:new Date(y,m+1,0).getDate()};
+  }
+
+  function $id(id) { return document.getElementById(id); }
+
+  function renderCal() {
+    var days=calDays(year,month), C=countMonth(year,month);
+    $id('admMlbl').textContent = MP[month]+' '+year;
+    $id('admStats').innerHTML =
+      '<div class="adm-sc"><div class="adm-sl">Sessoes</div><div class="adm-sv" style="color:var(--accent3)">'+C.tot+'</div><div class="adm-ss">de '+C.days+' dias</div></div>'+
+      '<div class="adm-sc"><div class="adm-sl">Forca/Pernas</div><div class="adm-sv">'+(C.byP[0]+C.byP[3])+'</div><div class="adm-ss">'+C.byP[0]+'F &middot; '+C.byP[3]+'P</div></div>'+
+      '<div class="adm-sc"><div class="adm-sl">Queima/Core</div><div class="adm-sv">'+(C.byP[1]+C.byP[2])+'</div><div class="adm-ss">'+C.byP[1]+'Q &middot; '+C.byP[2]+'C</div></div>'+
+      '<div class="adm-sc"><div class="adm-sl">Hoje</div><div class="adm-sv" style="color:var(--accent2)">'+pad(new Date().getDate())+'</div><div class="adm-ss">'+MP[new Date().getMonth()]+'</div></div>';
+    $id('admWdh').innerHTML = WD.map(function(w){return '<div class="admin-wdl">'+w+'</div>';}).join('');
+    var cg='';
+    days.forEach(function(item) {
+      var dd=sched[item.k]||{}, sel=modal&&modal.day===item.k;
+      var cls='admin-cc'+(item.cur?'':' adim')+(item.k===TODAY?' atoday':'')+(sel?' asel':'');
+      var chips=P.map(function(p){
+        var pd=dd[p.i]; if(!pd||!pd.exs||!pd.exs.length) return '';
+        return '<span class="admin-pchip" style="background:'+p.bg+';border:1px solid '+p.bd+';color:'+p.tx+'">'+p.sh+' &middot;'+pd.exs.length+'</span>';
+      }).join('');
+      cg += '<div class="'+cls+'"'+(item.cur?' onclick="admOpenDay(''+item.k+'')"':'')+'>'+
+        '<span class="admin-dn">'+item.d+'</span>'+
+        '<div class="admin-pchips">'+chips+'</div>'+
+        '</div>';
+    });
+    $id('admCg').innerHTML = cg;
+    $id('admLgnd').innerHTML = P.map(function(p){
+      return '<div class="admin-li"><span class="admin-ldot" style="background:'+p.bg+';border:1px solid '+p.bd+'"></span>'+p.lb+'</div>';
+    }).join('');
+  }
+
+  function getNote() { var t=$id('admNote'); if(t&&modal) modal.pd[modal.tab].note=t.value; }
+  function getForm() { var n=$id('admExN'),s=$id('admExS'),r=$id('admExR'); return {name:n?n.value:'',sets:s?s.value:'',reps:r?r.value:''}; }
+  function reattach(saved) {
+    var t=$id('admNote'); if(t&&modal) t.oninput=function(e){modal.pd[modal.tab].note=e.target.value;};
+    var n=$id('admExN'),s=$id('admExS'),r=$id('admExR');
+    if(n){if(saved&&saved.name)n.value=saved.name; n.onkeydown=function(e){if(e.key==='Enter')admAddEx();};}
+    if(s&&saved&&saved.sets)s.value=saved.sets;
+    if(r){if(saved&&saved.reps)r.value=saved.reps; r.onkeydown=function(e){if(e.key==='Enter')admAddEx();};}
+  }
+
+  function renderModal() {
+    var ovl=$id('admMovl');
+    if (!modal) { ovl.classList.remove('open'); return; }
+    ovl.classList.add('open');
+    var pi=modal.tab, pd=modal.pd[pi], p=P[pi], exList=allEx(pi);
+    var aset=new Set(pd.exs||[]);
+    // tabs
+    var tabs=P.map(function(pp,i){
+      var dpd=modal.pd[i], hasSch=dpd.exs&&dpd.exs.length>0;
+      var dot=hasSch?'<span class="admin-tab-dot" style="background:'+pp.bg+';border:1px solid '+pp.bd+'"></span>':'';
+      var lineColor=i===pi?pp.tx:'transparent';
+      return '<div class="admin-tab'+(i===pi?' on':'')+'" onclick="admTab('+i+')" style="'+(i===pi?'color:'+pp.tx:'')+'">' +
+        dot+pp.sh+'<div class="admin-tab-line" style="background:'+lineColor+'"></div></div>';
+    }).join('');
+    // exercises
+    var exItems='';
+    exList.forEach(function(ex){
+      var on=aset.has(ex.id);
+      exItems+='<div class="admin-ei" onclick="admTogEx(''+ex.id+'')">'+
+        '<span class="admin-ek'+(on?' on':'')+'">'+( on?'&#10003;':''  )+'</span>'+
+        '<span class="admin-en">'+h(ex.n)+'</span>'+
+        (ex.custom?'<span class="admin-ctag">NOVO</span>':'')+
+        '<span class="admin-eset">'+h(fmt(ex))+'</span>'+
+        (ex.custom?'<button class="admin-edel" onclick="event.stopPropagation();admDelEx(''+ex.id+'')" title="Remover">&#10005;</button>':'')+
+        '</div>';
+    });
+    var isCustom = pd.exs && pd.exs.length > 0;
+    $id('admModal').innerHTML =
+      '<div class="admin-mhdr"><div>'+
+        '<div class="admin-mttl">DIA DE TREINO'+(modal.day===TODAY?'<span class="admin-tbadge">HOJE</span>':'')+'</div>'+
+        '<div class="admin-mdt">'+fmtDay(modal.day)+'</div>'+
+      '</div><button style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.4rem;font-family:inherit;line-height:1" onclick="admCloseDay()">&#10005;</button></div>'+
+      '<div class="admin-tabs">'+tabs+'</div>'+
+      '<div class="admin-mbody">'+
+        '<span class="admin-slbl">Exercicios &mdash; <span style="color:'+(isCustom?p.tx:'#555')+'">'+(isCustom?aset.size+'/'+exList.length+' sel':'padrao - clica Personalizar')+'</span></span>'+
+        '<div class="admin-exbar">'+
+          (isCustom?'<button class="admin-exact" onclick="admResetDef()">Usar Padrao</button>':
+            '<button class="admin-exact" style="border-color:'+p.bd+';color:'+p.tx+'" onclick="admCustomize()">Personalizar</button>')+
+          '<button class="admin-exact" onclick="admSelAll()">Todos</button>'+
+          '<button class="admin-exact" onclick="admClrAll()">Nenhum</button>'+
+          '<span class="admin-excnt">'+(isCustom?aset.size+'/'+exList.length:'')+'</span>'+
+        '</div>'+
+        (exList.length?'<div class="admin-el">'+exItems+'</div>':'<div class="admin-empt">Sem exercicios - adiciona abaixo.</div>')+
+        '<div class="admin-addrow"><div class="admin-add-lbl">+ Novo exercicio</div>'+
+        '<div class="admin-add-fields">'+
+          '<input class="admin-ai" type="text" id="admExN" placeholder="Nome do exercicio..." autocomplete="off" style="flex:1"/>'+
+          '<input class="admin-ai" type="number" id="admExS" placeholder="Series" min="1" style="width:60px;text-align:center"/>'+
+          '<span class="admin-ai-sep">x</span>'+
+          '<input class="admin-ai" type="text" id="admExR" placeholder="Reps" autocomplete="off" style="width:60px;text-align:center"/>'+
+          '<button class="admin-addbtn" onclick="admAddEx()">+</button>'+
+        '</div></div>'+
+        '<span class="admin-slbl" style="margin-top:14px">Nota</span>'+
+        '<textarea class="admin-noteinput" id="admNote" placeholder="EX: FOCO NA TECNICA...">'+h(pd.note)+'</textarea>'+
+      '</div>'+
+      '<div class="admin-mftr">'+
+        '<button class="admin-bclr" onclick="admClearDay()">&#10005; LIMPAR DIA</button>'+
+        '<div style="display:flex;gap:8px">'+
+          '<button class="admin-bcancel" onclick="admCloseDay()">Cancelar</button>'+
+          '<button class="admin-bsave" onclick="admSaveDay()">GUARDAR</button>'+
+        '</div>'+
+      '</div>';
+    reattach();
+  }
+
+  function fmtDay(k) {
+    var p=k.split('-').map(Number);
+    return pad(p[2])+' '+MP[p[1]-1]+' '+p[0];
+  }
+
+  function loadDayModal(key) {
+    var saved=sched[key]||{}, pd={};
+    P.forEach(function(p){ var s=saved[p.i]; pd[p.i]={exs:s?s.exs.slice():[],note:s?s.note:''}; });
+    return pd;
+  }
+
+  function save() {
+    try{ localStorage.setItem('tbl-s3',JSON.stringify(sched)); localStorage.setItem('tbl-cx3',JSON.stringify(cex)); }catch(e){}
+  }
+  function load() {
+    try{
+      var r1=localStorage.getItem('tbl-s3'); if(r1)sched=JSON.parse(r1);
+      var r2=localStorage.getItem('tbl-cx3'); if(r2){ var c=JSON.parse(r2); [0,1,2,3].forEach(function(i){if(c[i])cex[i]=c[i];}); }
+    }catch(e){}
+  }
+
+  function applyToGrid() {
+    var dd=sched[TODAY];
+    var panels=document.querySelectorAll('.panel');
+    P.forEach(function(p){
+      var panel=panels[p.i]; if(!panel) return;
+      var exList=allEx(p.i);
+      var note=(dd&&dd[p.i]&&dd[p.i].note)||'';
+      // Note bar
+      var noteEl=panel.querySelector('.adm-note');
+      if(note){
+        if(!noteEl){ noteEl=document.createElement('div'); noteEl.className='adm-note';
+          noteEl.style.cssText='font-size:.6rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:3px 16px 4px;background:#0e0e0e;border-bottom:1px solid var(--border);flex-shrink:0;font-family:Barlow Condensed,sans-serif';
+          var el=panel.querySelector('.ex-list'); if(el) el.before(noteEl);
+        }
+        noteEl.textContent=note;
+      } else if(noteEl) { noteEl.remove(); }
+      // Exercises
+      if(dd&&dd[p.i]&&dd[p.i].exs&&dd[p.i].exs.length) {
+        var ids=dd[p.i].exs;
+        var active=ids.map(function(id){return exList.find(function(e){return e.id===id;});}).filter(Boolean);
+        var el=panel.querySelector('.ex-list');
+        if(el&&active.length){
+          el.innerHTML='';
+          active.forEach(function(ex,idx){
+            el.innerHTML+='<div class="ex-item"><span class="ex-num">'+pad(idx+1)+'</span><div class="ex-body"><div class="ex-name">'+h(ex.n)+'</div><div class="ex-detail">Personalizado</div></div><span class="ex-badge">'+h(fmt(ex))+'</span></div>';
+          });
+        }
+      }
+    });
+  }
+
+  // public API
+  load();
+
+  // attach overlay click
+  $id('admMovl').addEventListener('click',function(e){if(e.target===this)admCloseDay();});
+
+  // keyboard
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      if(modal){admCloseDay();return;}
+      if($id('adminOvl').classList.contains('open')){admClose();}
+    }
+  });
+
+  applyToGrid();
+
+  return {
+    open: function(){ $id('adminOvl').classList.add('open'); renderCal(); },
+    close: function(){ $id('adminOvl').classList.remove('open'); modal=null; $id('admMovl').classList.remove('open'); },
+    prevM: function(){ if(month===0){month=11;year--;}else month--; renderCal(); },
+    nextM: function(){ if(month===11){month=0;year++;}else month++; renderCal(); },
+    openDay: function(k){ modal={day:k,tab:0,pd:loadDayModal(k)}; renderCal(); renderModal(); },
+    closeDay: function(){ modal=null; renderCal(); $id('admMovl').classList.remove('open'); },
+    tab: function(i){ getNote(); modal.tab=i; renderModal(); reattach(); },
+    customize: function(){ getNote(); var all=allEx(modal.tab).map(function(e){return e.id;}); modal.pd[modal.tab].exs=all.slice(); renderModal(); reattach(); },
+    resetDef: function(){ getNote(); var f=getForm(); modal.pd[modal.tab].exs=[]; renderModal(); reattach(f); },
+    togEx: function(id){
+      getNote(); var f=getForm(), pi=modal.tab, all=allEx(pi).map(function(e){return e.id;}), pd=modal.pd[pi];
+      var cur=pd.exs&&pd.exs.length?pd.exs.slice():all.slice();
+      var idx=cur.indexOf(id); if(idx>=0)cur.splice(idx,1);else cur.push(id);
+      pd.exs=cur; renderModal(); reattach(f);
+    },
+    selAll: function(){ getNote(); var f=getForm(), all=allEx(modal.tab).map(function(e){return e.id;}); modal.pd[modal.tab].exs=all.slice(); renderModal(); reattach(f); },
+    clrAll: function(){ getNote(); var f=getForm(); modal.pd[modal.tab].exs=[]; renderModal(); reattach(f); },
+    addEx: function(){
+      if(!modal) return; getNote();
+      var ne=$id('admExN'), se=$id('admExS'), re=$id('admExR');
+      var name=(ne?ne.value:'').trim();
+      if(!name){ if(ne){ne.style.borderColor='var(--accent1)';setTimeout(function(){ne.style.borderColor='';},1200);} return; }
+      var sets=se?parseInt(se.value)||0:0, reps=(re?re.value.trim():'')||'?', id='cx-'+Date.now(), pi=modal.tab;
+      if(!cex[pi])cex[pi]=[];
+      cex[pi].push({id:id,n:name,s:sets,r:reps,custom:true});
+      modal.pd[pi].exs.push(id);
+      save(); renderModal(); reattach();
+      [$id('admExN'),$id('admExS'),$id('admExR')].forEach(function(el){if(el)el.value='';});
+      var n=$id('admExN'); if(n)n.focus();
+    },
+    delEx: function(id){
+      getNote(); var f=getForm(), pi=modal.tab;
+      cex[pi]=(cex[pi]||[]).filter(function(e){return e.id!==id;});
+      modal.pd[pi].exs=modal.pd[pi].exs.filter(function(x){return x!==id;});
+      Object.keys(sched).forEach(function(d){ var dd=sched[d]; if(dd&&dd[pi]&&dd[pi].exs)dd[pi].exs=dd[pi].exs.filter(function(x){return x!==id;}); });
+      save(); renderModal(); reattach(f);
+    },
+    saveDay: function(){
+      if(!modal) return; getNote();
+      var key=modal.day, saved={}, has=false;
+      P.forEach(function(p){ var pd=modal.pd[p.i]; if(pd.exs.length||pd.note){saved[p.i]={exs:pd.exs.slice(),note:pd.note};has=true;} });
+      if(has)sched[key]=saved;else delete sched[key];
+      save(); applyToGrid(); modal=null; renderCal(); $id('admMovl').classList.remove('open');
+    },
+    clearDay: function(){
+      if(!modal) return; delete sched[modal.day];
+      save(); applyToGrid(); modal=null; renderCal(); $id('admMovl').classList.remove('open');
+    }
+  };
+})();
+
+// Global functions called from HTML onclick
+function openAdmin()   { ADM.open(); }
+function admClose()    { ADM.close(); }
+function admPrevM()    { ADM.prevM(); }
+function admNextM()    { ADM.nextM(); }
+function admOpenDay(k) { ADM.openDay(k); }
+function admCloseDay() { ADM.closeDay(); }
+function admTab(i)     { ADM.tab(i); }
+function admCustomize(){ ADM.customize(); }
+function admResetDef() { ADM.resetDef(); }
+function admTogEx(id)  { ADM.togEx(id); }
+function admSelAll()   { ADM.selAll(); }
+function admClrAll()   { ADM.clrAll(); }
+function admAddEx()    { ADM.addEx(); }
+function admDelEx(id)  { ADM.delEx(id); }
+function admSaveDay()  { ADM.saveDay(); }
+function admClearDay() { ADM.clearDay(); }
+</script>
 
 </body>
 </html>
